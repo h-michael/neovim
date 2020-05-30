@@ -362,17 +362,6 @@ function module.check_cores(app, force)
   end
 end
 
-function module.which(exe)
-  local pipe = module.popen_r('which', exe)
-  local ret = pipe:read('*a')
-  pipe:close()
-  if ret == '' then
-    return nil
-  else
-    return ret:sub(1, -2)
-  end
-end
-
 function module.repeated_read_cmd(...)
   for _ = 1, 10 do
     local stream = module.popen_r(...)
@@ -449,13 +438,6 @@ function module.dictdiff(d1, d2)
   else
     return nil
   end
-end
-
-function module.updated(d, d2)
-  for k, v in pairs(d2) do
-    d[k] = v
-  end
-  return d
 end
 
 -- Concat list-like tables.
